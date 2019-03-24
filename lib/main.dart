@@ -4,7 +4,19 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _MyAppState();
+  }
+
+}
+
+class _MyAppState extends State<MyApp> {
+
+  List<String> _products = ['Food Tester'] 
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -15,15 +27,24 @@ class MyApp extends StatelessWidget {
             children: [
               Container(
                   margin: EdgeInsets.all(10.0),
-                  child: RaisedButton(onPressed: () {}, child: Text('Button'))),
-              Card(
+                  child: RaisedButton(onPressed: () {
+
+                    setState( () {
+                        _products.add('Advanced Food Tester');
+                    }  
+                    );
+                     
+
+                  }, child: Text('Button'))),
+              
+              Column(children: _products.map((element) =>  Card(
                 child: Column(
                   children: <Widget>[
-                    Image.asset('assets/do-something.png'),
-                    Text('That Makes you Happy')
+                    Image.asset('assets/food.jpg'),
+                    Text(element)
                   ],
                 ),
-              )
+              ) ).toList())  
             ],
           )),
     );
